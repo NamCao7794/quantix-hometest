@@ -129,13 +129,10 @@ func (s *PaymentService) StartExpiredBookingProcessor() {
 	ticker := time.NewTicker(1 * time.Minute) // Check every minute
 	defer ticker.Stop()
 
-	for {
-		select {
-		case <-ticker.C:
-			err := s.ProcessExpiredBookings()
-			if err != nil {
-				log.Printf("Error processing expired bookings: %v", err)
-			}
+	for range ticker.C {
+		err := s.ProcessExpiredBookings()
+		if err != nil {
+			log.Printf("Error processing expired bookings: %v", err)
 		}
 	}
 }

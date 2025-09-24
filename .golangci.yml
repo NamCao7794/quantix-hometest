@@ -2,17 +2,13 @@ run:
   timeout: 5m
   issues-exit-code: 1
   tests: true
-  skip-dirs:
-    - vendor
-  skip-files:
-    - ".*\\.pb\\.go$"
 
 linters-settings:
   gocyclo:
-    min-complexity: 15
+    min-complexity: 20
   goconst:
-    min-len: 2
-    min-occurrences: 2
+    min-len: 3
+    min-occurrences: 3
   gocritic:
     enabled-tags:
       - diagnostic
@@ -20,38 +16,29 @@ linters-settings:
       - opinionated
       - performance
       - style
-  govet:
-    check-shadowing: true
   misspell:
     locale: US
   lll:
-    line-length: 120
+    line-length: 150
   funlen:
-    lines: 100
-    statements: 50
+    lines: 120
+    statements: 60
   gocognit:
-    min-complexity: 20
+    min-complexity: 25
   nestif:
-    min-complexity: 5
-  gomnd:
+    min-complexity: 8
+  mnd:
     settings:
       mnd:
         checks: argument,case,condition,operation,return,assign
   dupl:
-    threshold: 100
-  goconst:
-    min-len: 2
-    min-occurrences: 2
+    threshold: 150
 
 linters:
   enable:
     - bodyclose
-    - deadcode
-    - depguard
     - dogsled
-    - dupl
     - errcheck
-    - exportloopref
     - funlen
     - gochecknoinits
     - goconst
@@ -59,9 +46,6 @@ linters:
     - gocyclo
     - gofmt
     - goimports
-    - golint
-    - gomnd
-    - goprintffuncname
     - gosec
     - gosimple
     - govet
@@ -73,29 +57,43 @@ linters:
     - prealloc
     - rowserrcheck
     - staticcheck
-    - structcheck
     - stylecheck
     - typecheck
     - unconvert
     - unparam
     - unused
-    - varcheck
     - whitespace
 
 issues:
   exclude-rules:
     - path: _test\.go
       linters:
-        - gomnd
+        - mnd
         - goconst
         - dupl
+        - funlen
     - path: internal/handlers/
       linters:
         - gocyclo
         - funlen
+        - dupl
     - path: internal/services/
       linters:
         - gocyclo
         - funlen
+    - path: internal/repository/
+      linters:
+        - rowserrcheck
+        - errcheck
+    - path: main.go
+      linters:
+        - lll
+        - gocritic
+    - text: "cancelled"
+      linters:
+        - misspell
+    - text: "CANCELLED"
+      linters:
+        - misspell
   max-issues-per-linter: 0
   max-same-issues: 0

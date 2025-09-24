@@ -16,7 +16,11 @@ type BookingService struct {
 	paymentDeadline int // in minutes
 }
 
-func NewBookingService(bookingRepo repository.BookingRepositoryInterface, eventRepo repository.EventRepositoryInterface, paymentDeadline int) *BookingService {
+func NewBookingService(
+	bookingRepo repository.BookingRepositoryInterface,
+	eventRepo repository.EventRepositoryInterface,
+	paymentDeadline int,
+) *BookingService {
 	return &BookingService{
 		bookingRepo:     bookingRepo,
 		eventRepo:       eventRepo,
