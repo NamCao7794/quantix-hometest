@@ -28,9 +28,7 @@ linters-settings:
   nestif:
     min-complexity: 8
   mnd:
-    settings:
-      mnd:
-        checks: argument,case,condition,operation,return,assign
+    checks: [argument,case,condition,operation,return,assign]
   dupl:
     threshold: 150
 
